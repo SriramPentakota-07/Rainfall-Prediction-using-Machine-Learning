@@ -44,3 +44,9 @@ else:
         print("Rain Prediction for Andhra Pradesh on", tomorrow, ": YES")
     else:
         print("Rain Prediction for Andhra Pradesh on", tomorrow, ": NO")
+
+==== Sample Output ====
+Location: Andhra Pradesh (Coastal Andhra)
+Today's Date: 2026-04-06
+Tomorrow's Date: 2026-04-07
+Rain Prediction for Andhra Pradesh on 2026-04-07 : YES
