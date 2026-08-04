@@ -12,8 +12,9 @@ data = pd.read_csv(file_path)
 data.columns = data.columns.str.strip()
 data.fillna(0, inplace=True)
 
-location = "COASTAL ANDHRA PRADESH" # Corrected location name
-data = data[data['SUBDIVISION'] == location]
+print(list(set(data['SUBDIVISION'])))
+location = input().lower()
+data = data[data['SUBDIVISION'].str.lower() == location]
 
 if data.empty:
     print(f"Error: No data found for the given location '{location}'. Please check the spelling or available subdivisions.")
@@ -21,7 +22,7 @@ else:
     today = datetime.today().strftime("%Y-%m-%d")
     tomorrow = (datetime.today() + timedelta(days=1)).strftime("%Y-%m-%d")
 
-    print("Location: Andhra Pradesh (Coastal Andhra)")
+    print(f"Location: {location}")
     print("Today's Date:", today)
     print("Tomorrow's Date:", tomorrow)
 
@@ -36,17 +37,12 @@ else:
     model = DecisionTreeClassifier()
     model.fit(X, y)
 
-    avg_values = data[features].mean().values.reshape(1, -1)
+    avg_values_dict = data[features].mean().to_dict()
+    prediction_df = pd.DataFrame([avg_values_dict])
 
-    prediction = model.predict(avg_values)
+    prediction = model.predict(prediction_df)
 
     if prediction[0] == 1:
-        print("Rain Prediction for Andhra Pradesh on", tomorrow, ": YES")
+        print(f"Rain Prediction for {location} on {tomorrow}: YES")
     else:
-        print("Rain Prediction for Andhra Pradesh on", tomorrow, ": NO")
-
-==== Sample Output ====
-Location: Andhra Pradesh (Coastal Andhra)
-Today's Date: 2026-04-06
-Tomorrow's Date: 2026-04-07
-Rain Prediction for Andhra Pradesh on 2026-04-07 : YES
+        print(f"Rain Prediction for {location} on {tomorrow}: NO")
